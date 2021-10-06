@@ -1,13 +1,24 @@
 const express = require('express');
-const { truncate } = require('fs');
 const mongoose = require('mongoose');
+const config = require('./config/dev');
+//const FakeDb = require('./fake-db');
+const SampleDb = require('./sample-db');
+const productRoutes = require('./routes/products')
 
-mongoose.connect('mongodb+srv://test:test@cluster0.2jeft.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {
-    userNewUralParser: true,
+
+mongoose.connect(config.DB_RUI, {
+    useNewUrlParser: true,
     useUnifiedTopology: true
-});
+}).then(
+    () =>{
+        const sampleDb = new SampleDb()
+        sampleDb.initDb()
+    }
+)
 
 const app = express()
+
+app.use('/api/v1/products', productRoutes);
 
 app.get('/products', function(req, res){
     res.json({ 'sucsess': true})
@@ -18,5 +29,3 @@ const PORT = process.env.PORT || '3001'
 app.listen(PORT, function(){
     console.log('I am running!')
 })
-
-//mongodb+srv://test:<password>@cluster0.2jeft.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
