@@ -35,7 +35,7 @@
               "src/styles.scss"
             ],
             "scripts": [
-              "node_modules/bootstrap/dist/css/bootstrap.min.css"
+
             ]
           },
           "configurations": {
@@ -106,8 +106,7 @@
               "src/styles.scss"
             ],
             "scripts": [
-              
-              "node_modules/bootstrap/dist/css/bootstrap.min.css"
+
             ]
           }
         }
