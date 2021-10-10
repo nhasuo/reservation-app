@@ -1,3 +1,3 @@
-module.exports ={
-    DB_RUI: process.env.DB_RUI
+module.exports = {
+    DB_URI: process.env.DB_URI
 }
