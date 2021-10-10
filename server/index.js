@@ -6,7 +6,7 @@ const SampleDb = require('./sample-db');
 const productRoutes = require('./routes/products')
 const path = require('path');
 
-mongoose.connect(config.DB_RUI, {
+mongoose.connect(config.DB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(
