@@ -1,18 +1,20 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const config = require('./config/dev');
+const config = require('./config');
 //const FakeDb = require('./fake-db');
 const SampleDb = require('./sample-db');
 const productRoutes = require('./routes/products')
-
+const path = require('path');
 
 mongoose.connect(config.DB_RUI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(
-    () =>{
-        const sampleDb = new SampleDb()
-        sampleDb.initDb()
+    () => {
+        if (process.env.NODE_ENV !== 'production') {
+            const sampleDb = new SampleDb()
+            // sampleDb.initDb()
+        }
     }
 )
 
@@ -20,12 +22,19 @@ const app = express()
 
 app.use('/api/v1/products', productRoutes);
 
-app.get('/products', function(req, res){
-    res.json({ 'sucsess': true})
+if (process.env.NODE_ENV === 'production') {
+    const appPath = path.join(__dirname, '..', 'dist', 'reservation-app')
+    app.use(express.static(appPath));
+    app.get("*", function (req, res) {
+        res.sendFile(path.resolve(appPath, 'index.html'))
+    })
+}
+app.get('/products', function (req, res) {
+    res.json({ 'sucsess': true })
 })
 
 const PORT = process.env.PORT || '3001'
 
-app.listen(PORT, function(){
+app.listen(PORT, function () {
     console.log('I am running!')
 })
