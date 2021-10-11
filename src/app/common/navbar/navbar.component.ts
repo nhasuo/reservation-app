@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
+import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
+
 
 @Component({
   selector: 'app-navbar',
@@ -7,4 +9,7 @@ import { Component } from '@angular/core';
 })
 export class NavbarComponent {
   title = 'reservation-app';
+
+
+  
 }
